@@ -1,4 +1,4 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Place Id Finder
+# <img src="public/icons/icon_48.png" width="45" align="left"> Place ID Finder
 
 Place ID Finder
 
