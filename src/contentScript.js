@@ -71,3 +71,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse({ attributeValue: attributeValue });
     }
 })
+
+// Website
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'getWebsiteValue') {
+      const website = document.querySelector('div.QqG1Sd');
+      const aTag = website.getElementsByTagName('a')[0];
+      const attributeValue = aTag.href;
+      sendResponse({ attributeValue: attributeValue });
+    }
+})

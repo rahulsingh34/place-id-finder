@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (chrome.runtime.lastError) {
                     reviews.innerText = "No Reviews"
                   } else if (response && response.attributeValue) {
-                    reviews.innerText = parseInt(response.attributeValue)
+                    reviews.innerText = parseInt(response.attributeValue.replace(',', ''))
                     navigator.clipboard.writeText(reviews.innerText)
                     reviews.innerText = "Reviews Copied!"
                   } else {
@@ -77,4 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Website
+    document.getElementById('getWebsite').addEventListener('click', () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tab = tabs[0];
+            chrome.tabs.sendMessage(tab.id, { action: 'getWebsiteValue' }, (response) => {
+                var website = document.getElementById('data')
+                if (chrome.runtime.lastError) {
+                    website.innerText = "No Website"
+                  } else if (response && response.attributeValue) {
+                    website.innerText = response.attributeValue
+                    navigator.clipboard.writeText(website.innerText)
+                    website.innerText = "Website Copied!"
+                  } else {
+                    website.innerText = "Error on Website"
+                  }
+            });
+        });
+    });
+
 });
+
