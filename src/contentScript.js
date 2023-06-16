@@ -4,9 +4,18 @@
 // With content script you can manipulate the web pages using
 // Document Object Model (DOM).
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === 'getAttributeValue') {
+    if (request.action === 'getPIDValue') {
       const element = document.querySelector('[data-pid]');
       const attributeValue = element ? element.getAttribute('data-pid') : null;
       sendResponse({ attributeValue: attributeValue });
     }
-  })
+})
+
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'getHoursValue') {
+      const element = document.querySelector('[data-pid]');
+      const attributeValue = element ? element.getAttribute('data-pid') : null;
+      sendResponse({ attributeValue: attributeValue });
+    }
+})
