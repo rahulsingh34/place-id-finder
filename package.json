@@ -1,7 +1,7 @@
 {
-  "name": "place-id-finder",
+  "name": "business-page-scraper",
   "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "description": "Simple tool to get details off of a Google Business Page",
   "private": true,
   "scripts": {
     "watch": "webpack --mode=development --watch --config config/webpack.config.js",
