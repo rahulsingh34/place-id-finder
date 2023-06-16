@@ -10,16 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     pid.innerText = "No PID"
                   } else if (response && response.attributeValue) {
                     pid.innerText = response.attributeValue
+                    navigator.clipboard.writeText(pid.innerText)
+                    pid.innerText = "PID Copied!"
                   } else {
-                    pid.innerText = "Error"
+                    pid.innerText = "Error on PID"
                   }
             });
         });
-    });
-
-    document.getElementById('copy').addEventListener('click', () => {
-        let pid = document.getElementById('pid')
-        navigator.clipboard.writeText(pid.innerText)
-        pid.innerText = "Copied!"
     });
 });
