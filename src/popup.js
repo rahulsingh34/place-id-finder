@@ -1,6 +1,7 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Place ID
     document.getElementById('getPID').addEventListener('click', () => {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             const tab = tabs[0];
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Hours
     document.getElementById('getHours').addEventListener('click', () => {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             const tab = tabs[0];
@@ -32,6 +34,44 @@ document.addEventListener('DOMContentLoaded', () => {
                     hours.innerText = "Hours Copied!"
                   } else {
                     hours.innerText = "Error on Hours"
+                  }
+            });
+        });
+    });
+
+    // Reviews
+    document.getElementById('getReviews').addEventListener('click', () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tab = tabs[0];
+            chrome.tabs.sendMessage(tab.id, { action: 'getReviewsValue' }, (response) => {
+                var reviews = document.getElementById('data')
+                if (chrome.runtime.lastError) {
+                    reviews.innerText = "No Reviews"
+                  } else if (response && response.attributeValue) {
+                    reviews.innerText = parseInt(response.attributeValue)
+                    navigator.clipboard.writeText(reviews.innerText)
+                    reviews.innerText = "Reviews Copied!"
+                  } else {
+                    reviews.innerText = "Error on Reviews"
+                  }
+            });
+        });
+    });
+
+    // Phone Number
+    document.getElementById('getPhone').addEventListener('click', () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tab = tabs[0];
+            chrome.tabs.sendMessage(tab.id, { action: 'getPhoneValue' }, (response) => {
+                var phone = document.getElementById('data')
+                if (chrome.runtime.lastError) {
+                    phone.innerText = "No Phone"
+                  } else if (response && response.attributeValue) {
+                    phone.innerText = response.attributeValue
+                    navigator.clipboard.writeText(phone.innerText)
+                    phone.innerText = "Phone Copied!"
+                  } else {
+                    phone.innerText = "Error on Phone"
                   }
             });
         });
