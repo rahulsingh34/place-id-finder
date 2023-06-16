@@ -96,5 +96,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-});
+    // Competitors
+    document.getElementById('getComps').addEventListener('click', () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const tab = tabs[0];
+            chrome.tabs.sendMessage(tab.id, { action: 'getCompsValue' }, (response) => {
+                var comps = document.getElementById('data')
+                if (chrome.runtime.lastError) {
+                    comps.innerText = "No Competitors"
+                  } else if (response && response.attributeValue) {
+                    comps.innerText = response.attributeValue.replaceAll('.com', '')
+                    navigator.clipboard.writeText(comps.innerText)
+                    comps.innerText = "Competitors Copied!"
+                  } else {
+                    comps.innerText = "Error on Competitors"
+                  }
+            });
+        });
+    });
 
+});

@@ -81,3 +81,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse({ attributeValue: attributeValue });
     }
 })
+
+// Competitors
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'getCompsValue') {
+      const elements = document.querySelectorAll('a.xFAlBc');
+
+      const elementsText = []
+      elements.forEach((element) => {
+        const text = element.innerText
+        if (text.includes('doordash') || text.includes('ubereats')) {
+            elementsText.push(text);
+        }
+      });
+
+      const attributeValue = elementsText.join('; ');
+      sendResponse({ attributeValue: attributeValue });
+    }
+})
