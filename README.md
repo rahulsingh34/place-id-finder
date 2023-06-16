@@ -1,8 +1,8 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Place ID Finder
+# <img src="public/icons/icon_48.png" width="45" align="left"> Business Page Scraper
 
 ## Description
 
-- Find the Google Place ID on any Google Business Page
+- Simple tool to get details off of a Google Business Page
 
 ## Notes
 
