@@ -1,21 +1,9 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Place Id Finder
+# <img src="public/icons/icon_48.png" width="45" align="left"> Place ID Finder
 
-My Chrome Extension
+## Description
 
-## Features
+- Find the Google Place ID on any Google Business Page
 
-- Feature 1
-- Feature 2
+## Notes
 
-## Install
-
-[**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
-
-## Contribution
-
-Suggestions and pull requests are welcomed!.
-
----
-
-This project was bootstrapped with [Chrome Extension CLI](https://github.com/dutiyesh/chrome-extension-cli)
-
+- My first attempt at creating a chrome plugin
