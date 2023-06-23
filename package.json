@@ -1,6 +1,6 @@
 {
   "name": "business-page-scraper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Simple tool to get details off of a Google Business Page",
   "private": true,
   "scripts": {
