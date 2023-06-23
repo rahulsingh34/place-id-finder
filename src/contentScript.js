@@ -57,7 +57,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // Reviews
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'getReviewsValue') {
-      const element = document.querySelector('[data-async-trigger="reviewDialog"]');
+      var element = document.querySelector('[data-async-trigger="reviewDialog"]');
+      if (!element.innerText) {
+        element = document.querySelector('.RDApEe.YrbPuc');
+      }
       const attributeValue = element ? element.innerText : null;
       sendResponse({ attributeValue: attributeValue });
     }

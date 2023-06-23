@@ -1,5 +1,22 @@
 'use strict';
 
+function convertToNumber(str) {
+    const suffixes = {
+        K: 1000,
+        M: 1000000,
+        B: 1000000000
+    };
+  
+    const numericPart = parseFloat(str);
+    const suffix = str[str.length - 1];
+  
+    if (suffixes.hasOwnProperty(suffix)) {
+        return numericPart * suffixes[suffix];
+    }
+  
+    return numericPart;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Place ID
     document.getElementById('getPID').addEventListener('click', () => {
@@ -48,7 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (chrome.runtime.lastError) {
                     reviews.innerText = "No Reviews"
                   } else if (response && response.attributeValue) {
-                    reviews.innerText = parseInt(response.attributeValue.replace(',', ''))
+                    var response = response.attributeValue
+                    if (response.includes("(")) {
+                        response = response.replace(/[()]/g, '')
+                        reviews.innerText = convertToNumber(response)
+                    } else {
+                        reviews.innerText = parseInt(response.replace(',', ''))
+                    }
                     navigator.clipboard.writeText(reviews.innerText)
                     reviews.innerText = "Reviews Copied!"
                   } else {
