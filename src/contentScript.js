@@ -78,9 +78,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // Website
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'getWebsiteValue') {
-      const website = document.querySelector('div.QqG1Sd');
-      const aTag = website.getElementsByTagName('a')[0];
-      const attributeValue = aTag.href;
+      var website = document.querySelector('div.QqG1Sd');
+      var attributeValue = ''
+      if (!website) {
+        website = document.querySelector('a.dHS6jb');
+        attributeValue = website.href
+      } else {
+        website = website.getElementsByTagName('a')[0];
+        attributeValue = website.href;
+      }
       sendResponse({ attributeValue: attributeValue });
     }
 })
