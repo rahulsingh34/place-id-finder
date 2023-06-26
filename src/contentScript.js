@@ -30,7 +30,52 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             tableData.push(rowData)
         })
       }
-      const rawTable = tableData.join(' ')
+
+      // Remove holiday hours
+      const modifiedArray = tableData.map((element) => {
+        const modifiedElement = [...element];
+        let firstSubElement = modifiedElement[0];
+        let secondSubElement = modifiedElement[1];
+      
+        // Remove '\n' and subsequent text from the first sub-element
+        const newlineIndex1 = firstSubElement.indexOf('\n');
+        const newlineIndex2 = secondSubElement.indexOf('\n')
+        if (newlineIndex1 !== -1) {
+          firstSubElement = firstSubElement.substring(0, newlineIndex1);
+          secondSubElement = secondSubElement.substring(0, newlineIndex2)
+        }
+      
+        // Remove '(' and subsequent text from the first sub-element
+        const parenIndex = firstSubElement.indexOf('(');
+        if (parenIndex !== -1) {
+          firstSubElement = firstSubElement.substring(0, parenIndex);
+        }
+      
+        // Find the index of the fourth '.' in the second sub-element
+        let dotCount = 0;
+        let dotIndex = -1;
+      
+        for (let i = 0; i < secondSubElement.length; i++) {
+          if (secondSubElement[i] === '.') {
+            dotCount++;
+            if (dotCount === 4) {
+              dotIndex = i;
+              break;
+            }
+          }
+        }
+      
+        // Remove everything after the fourth '.' from the second sub-element
+        if (dotIndex !== -1) {
+          secondSubElement = secondSubElement.substring(0, dotIndex+1);
+        }
+      
+        modifiedElement[0] = firstSubElement;
+        modifiedElement[1] = secondSubElement;
+        return modifiedElement;
+      });
+      
+      const rawTable = modifiedArray.join(' ')
 
       // Split the schedule string into individual day-time pairs
       const pairs = rawTable.split(" ");
@@ -38,7 +83,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       // Map each pair into an object with day and time properties
       const hoursArray = pairs.map((pair) => {
         const [day, time] = pair.split(",");
-        return { day: day.trim(), time: time.trim() };
+        return { day: day, time: time };
       });
 
       // Define the order of the days of the week
